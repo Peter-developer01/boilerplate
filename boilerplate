@@ -3,14 +3,14 @@ import { program } from "commander";
 import fs from "fs";
 import prompts from "prompts";
 
-program.option("-y, --yes")
-        .option("-n, --no")
-        .option("--css")
-        .option("--no-css")
-        .option("--js")
-        .option("--no-js")
-        .option("--dry-run")
-        .option("--force")
+program.option("-y, --yes", "yes: include everything")
+        .option("-n, --no", "no: include only HTML")
+        .option("--css", "include CSS")
+        .option("--no-css", "don't include CSS")
+        .option("--js", "include JS")
+        .option("--no-js", "don't include JS")
+        .option("--dry-run", "don't actually do anything")
+        .option("--force", "force overwrite if directory exists")
         .argument("<dirname>");
 
 program.parse();
