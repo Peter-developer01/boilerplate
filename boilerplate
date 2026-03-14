@@ -32,8 +32,9 @@ if (fs.existsSync(dirname)) {
 
 if (opts.dryRun) console.log("Would create directory", dirname);
 else fs.mkdirSync(dirname);
-const includeCSS = opts.css ?? await getBool("Include CSS?");
-const includeJS = opts.js ?? await getBool("Include JS?");
+const noYes = opts.yes || opts.no;
+const includeCSS = noYes ?? opts.css ?? await getBool("Include CSS?");
+const includeJS = noYes ?? opts.js ?? await getBool("Include JS?");
 
 if (includeCSS) {
     if (opts.dryRun) console.log("Would create file", dirname + "/style.css");
@@ -75,12 +76,6 @@ else fs.writeFileSync(dirname + "/index.html", indexHTML);
 if (!opts.dryRun) console.log(`All done! \`code ${dirname}\``);
 
 async function getBool(prompt) {
-    if (opts.yes) {
-        return true;
-    }
-    if (opts.no) {
-        return false;
-    }
     return (await prompts({
         type: "confirm",
         name: "value",
