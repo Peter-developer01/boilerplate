@@ -5,6 +5,10 @@ import prompts from "prompts";
 
 program.option("-y, --yes")
         .option("-n, --no")
+        .option("--css")
+        .option("--no-css")
+        .option("--js")
+        .option("--no-js")
         .option("--dry-run")
         .option("--force")
         .argument("<dirname>");
@@ -28,8 +32,8 @@ if (fs.existsSync(dirname)) {
 
 if (opts.dryRun) console.log("Would create directory", dirname);
 else fs.mkdirSync(dirname);
-const includeCSS = await getBool("Include CSS?");
-const includeJS = await getBool("Include JS?");
+const includeCSS = opts.css ?? await getBool("Include CSS?");
+const includeJS = opts.js ?? await getBool("Include JS?");
 
 if (includeCSS) {
     if (opts.dryRun) console.log("Would create file", dirname + "/style.css");
